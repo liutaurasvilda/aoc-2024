@@ -1,33 +1,30 @@
 package solutions.day01;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 public class Day01 {
 
     public static long distance(LocationIDs locationIDs) {
-        Collections.sort(locationIDs.leftList);
-        Collections.sort(locationIDs.rightList);
-        return LongStream.range(0, locationIDs.leftList.size()).map(e -> {
-            var locationId1 = locationIDs.leftList.get((int) e);
-            var locationId2 = locationIDs.rightList.get((int) e);
-            return Math.abs(locationId1 - locationId2);
-        }).sum();
+        var leftList = locationIDs.leftList.sorted().toList();
+        var rightList = locationIDs.rightList.sorted().toList();
+        return LongStream.range(0, leftList.size())
+                .map(e -> Math.abs(leftList.get((int) e) - rightList.get((int) e)))
+                .sum();
     }
 
     public static long similarityScore(LocationIDs locationIDs) {
-        var locationIDs2Counts = locationIDs.rightList.stream()
+        var rightList = locationIDs.rightList
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-        return locationIDs.leftList.stream()
-                .map(e -> locationIDs2Counts.getOrDefault(e, 0L) * e)
+        return locationIDs.leftList
+                .map(e -> rightList.getOrDefault(e, 0L) * e)
                 .mapToLong(e -> e)
                 .sum();
     }
 
-    public record LocationIDs(List<Long> leftList, List<Long> rightList) {
+    public record LocationIDs(Stream<Long> leftList, Stream<Long> rightList) {
     }
 }

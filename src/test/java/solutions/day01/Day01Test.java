@@ -29,6 +29,6 @@ class Day01Test {
                     rightList.add(Long.valueOf(e[1]));
                 });
 
-        return new Day01.LocationIDs(leftList, rightList);
+        return new Day01.LocationIDs(leftList.stream(), rightList.stream());
     }
 }
