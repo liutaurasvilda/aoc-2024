@@ -4,9 +4,8 @@ import org.junit.jupiter.api.Test;
 import util.ResourceReader;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day01Test {
 
@@ -21,15 +20,14 @@ class Day01Test {
     }
 
     private static Day01.HistorianNotes historianNotes() {
-        var input = ResourceReader.asString("day01.txt");
+        var locationIds1 = new ArrayList<Long>();
+        var locationIds2 = new ArrayList<Long>();
 
-        List<Long> locationIds1 = new ArrayList<>();
-        List<Long> locationIds2 = new ArrayList<>();
-
-        input.stream().map(e -> e.split("   ")).forEach(e -> {
-            locationIds1.add(Long.valueOf(e[0]));
-            locationIds2.add(Long.valueOf(e[1]));
-        });
+        ResourceReader.asString("day01.txt").stream()
+                .map(e -> e.split("   ")).forEach(e -> {
+                    locationIds1.add(Long.valueOf(e[0]));
+                    locationIds2.add(Long.valueOf(e[1]));
+                });
 
         return new Day01.HistorianNotes(locationIds1, locationIds2);
     }
