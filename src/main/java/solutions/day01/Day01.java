@@ -16,9 +16,7 @@ public class Day01 {
     }
 
     public static long similarityScore(LocationIDs locationIDs) {
-        var rightList = locationIDs.rightList
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
+        var rightList = locationIDs.rightList.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         return locationIDs.leftList
                 .map(e -> rightList.getOrDefault(e, 0L) * e)
                 .mapToLong(e -> e)
