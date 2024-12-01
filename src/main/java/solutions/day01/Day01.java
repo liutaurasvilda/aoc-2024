@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-public class Day01 {
+final class Day01 {
 
     public static long distance(LocationIDs locationIDs) {
         var leftList = locationIDs.leftList.sorted().toList();
@@ -23,6 +23,6 @@ public class Day01 {
                 .sum();
     }
 
-    public record LocationIDs(Stream<Long> leftList, Stream<Long> rightList) {
+    record LocationIDs(Stream<Long> leftList, Stream<Long> rightList) {
     }
 }
