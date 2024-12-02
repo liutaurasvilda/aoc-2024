@@ -18,14 +18,13 @@ final class Day02 {
     }
 
     private static boolean safeWithinLimits(List<Integer> levels) {
+        var safeLevels = new ArrayList<Boolean>();
         for (int i = 0; i < levels.size(); i++) {
             var trimmedLevels = new ArrayList<>(levels);
             trimmedLevels.remove(i);
-            if (safe(trimmedLevels)) {
-                return true;
-            }
+            safeLevels.add(safe(trimmedLevels));
         }
-        return false;
+        return safeLevels.stream().anyMatch(e -> e);
     }
 
     private static boolean safeLevels(List<Integer> levels) {
