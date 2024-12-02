@@ -10,14 +10,14 @@ final class Day02 {
     }
 
     static long safeReportsWithSingleBadLevelTolerance(Reports reports) {
-        return reports.levels().stream().filter(Day02::safeWithAtMostOneBadLevel).count();
+        return reports.levels().stream().filter(Day02::safeWithinLimits).count();
     }
 
     private static boolean safe(List<Integer> levels) {
-        return (inOrder(levels) || inOrder(levels.reversed())) && safeGaps(levels);
+        return safeLevels(levels) || safeLevels(levels.reversed());
     }
 
-    private static boolean safeWithAtMostOneBadLevel(List<Integer> levels) {
+    private static boolean safeWithinLimits(List<Integer> levels) {
         for (int i = 0; i < levels.size(); i++) {
             var trimmedLevels = new ArrayList<>(levels);
             trimmedLevels.remove(i);
@@ -28,21 +28,12 @@ final class Day02 {
         return false;
     }
 
-    private static boolean inOrder(List<Integer> levels) {
-        for (int i = 0; i < levels.size() - 1; i++) {
-            if (levels.get(i) > levels.get(i + 1)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean safeGaps(List<Integer> levels) {
+    private static boolean safeLevels(List<Integer> levels) {
         var gaps = new ArrayList<Integer>();
         for (int i = 0; i < levels.size() - 1; i++) {
-            gaps.add(Math.abs(levels.get(i) - levels.get(i + 1)));
+            gaps.add(levels.get(i) - levels.get(i + 1));
         }
-        return gaps.stream().allMatch(e -> e >= 1 && e <= 3);
+        return gaps.stream().allMatch(e -> e < 0 && Math.abs(e) >= 1 && Math.abs(e) <= 3);
     }
 
     record Reports(List<List<Integer>> levels) {
