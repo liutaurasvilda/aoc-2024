@@ -39,8 +39,8 @@ final class Day02 {
 
     private static boolean safeGaps(List<Integer> levels) {
         var gaps = new ArrayList<Integer>();
-        for (int i = 0; i < levels.size()-1; i++) {
-            gaps.add(Math.abs(levels.get(i) - levels.get(i+1)));
+        for (int i = 0; i < levels.size() - 1; i++) {
+            gaps.add(Math.abs(levels.get(i) - levels.get(i + 1)));
         }
         return gaps.stream().allMatch(e -> e >= 1 && e <= 3);
     }
