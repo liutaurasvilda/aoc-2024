@@ -10,10 +10,14 @@ final class Day02 {
     }
 
     static long safeReportsWithSingleBadLevelTolerance(Reports reports) {
-        return reports.levels().stream().filter(Day02::safeWithAtMostSingleBadLevel).count();
+        return reports.levels().stream().filter(Day02::safeWithAtMostOneBadLevel).count();
     }
 
-    private static boolean safeWithAtMostSingleBadLevel(List<Integer> levels) {
+    private static boolean safe(List<Integer> levels) {
+        return (inOrder(levels) || inOrder(levels.reversed())) && safeGaps(levels);
+    }
+
+    private static boolean safeWithAtMostOneBadLevel(List<Integer> levels) {
         for (int i = 0; i < levels.size(); i++) {
             var trimmedLevels = new ArrayList<>(levels);
             trimmedLevels.remove(i);
@@ -22,10 +26,6 @@ final class Day02 {
             }
         }
         return false;
-    }
-
-    private static boolean safe(List<Integer> levels) {
-        return (inOrder(levels) || inOrder(levels.reversed())) && safeGaps(levels);
     }
 
     private static boolean inOrder(List<Integer> levels) {
