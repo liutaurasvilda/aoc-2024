@@ -11,8 +11,21 @@ public class Day02 {
                 .count();
     }
 
-    public static long safeReportsWithBadLevelTolerance(List<List<Integer>> levelReports) {
-        return 6;
+    public static long safeReportsWithSingleBadLevelTolerance(List<List<Integer>> levelReports) {
+        return levelReports.stream()
+                .filter(e -> withAtMostSingleBadLevel(e))
+                .count();
+    }
+
+    private static boolean withAtMostSingleBadLevel(List<Integer> levels) {
+        for (int i = 0; i < levels.size(); i++) {
+            var trimmedList = new ArrayList<>(levels);
+            trimmedList.remove(i);
+            if ((inOrder(trimmedList) || inOrder(trimmedList.reversed())) && safeGaps(trimmedList)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean inOrder(List<Integer> levels) {

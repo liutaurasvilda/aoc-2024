@@ -11,16 +11,15 @@ class Day02Test {
 
     @Test
     void part1() {
-        assertEquals(2, Day02.safeReports(levelReports()));
-//        assertEquals(282, Day02.safeReports(levelReports()));
+        assertEquals(282, Day02.safeReports(levelReports()));
     }
 
     @Test
     void part2() {
-        assertEquals(6, Day02.safeReportsWithBadLevelTolerance(levelReports()));
+        assertEquals(349, Day02.safeReportsWithSingleBadLevelTolerance(levelReports()));
     }
 
     private List<List<Integer>> levelReports() {
-        return ResourceReader.asIntList("day02_test.txt", ResourceReader.Delimiter.SPACE);
+        return ResourceReader.asIntList("day02.txt", ResourceReader.Delimiter.SPACE);
     }
 }
