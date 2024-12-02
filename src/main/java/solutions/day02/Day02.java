@@ -6,26 +6,26 @@ import java.util.List;
 public class Day02 {
 
     public static long safeReports(List<List<Integer>> levelReports) {
-        return levelReports.stream()
-                .filter(e -> (inOrder(e) || inOrder(e.reversed())) && safeGaps(e))
-                .count();
+        return levelReports.stream().filter(Day02::safeReport).count();
     }
 
     public static long safeReportsWithSingleBadLevelTolerance(List<List<Integer>> levelReports) {
-        return levelReports.stream()
-                .filter(e -> withAtMostSingleBadLevel(e))
-                .count();
+        return levelReports.stream().filter(Day02::withAtMostSingleBadLevel).count();
     }
 
     private static boolean withAtMostSingleBadLevel(List<Integer> levels) {
         for (int i = 0; i < levels.size(); i++) {
             var trimmedList = new ArrayList<>(levels);
             trimmedList.remove(i);
-            if ((inOrder(trimmedList) || inOrder(trimmedList.reversed())) && safeGaps(trimmedList)) {
+            if (safeReport(trimmedList)) {
                 return true;
             }
         }
         return false;
+    }
+
+    private static boolean safeReport(List<Integer> levels) {
+        return (inOrder(levels) || inOrder(levels.reversed())) && safeGaps(levels);
     }
 
     private static boolean inOrder(List<Integer> levels) {
