@@ -23,7 +23,7 @@ class Day01Test {
         var leftList = new ArrayList<Long>();
         var rightList = new ArrayList<Long>();
 
-        ResourceReader.asString("day01.txt").stream()
+        ResourceReader.stringLines("day01.txt").stream()
                 .map(e -> e.split("   ")).forEach(e -> {
                     leftList.add(Long.valueOf(e[0]));
                     rightList.add(Long.valueOf(e[1]));

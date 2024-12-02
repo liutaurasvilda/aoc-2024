@@ -18,6 +18,6 @@ class Day02Test {
     }
 
     private Day02.Reports levelReports() {
-        return new Day02.Reports(ResourceReader.asIntList("day02.txt", ResourceReader.Delimiter.SPACE));
+        return new Day02.Reports(ResourceReader.intLinesDelimited("day02.txt", ResourceReader.Delimiter.SPACE));
     }
 }

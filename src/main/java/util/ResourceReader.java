@@ -21,39 +21,39 @@ public final class ResourceReader {
         }
     }
 
-    public static List<String> asString(String resourceName) {
+    public static List<String> stringLines(String resourceName) {
         return readResource(resourceName)
                 .collect(Collectors.toList());
     }
 
-    public static List<List<String>> asStringList(String resourceName, Delimiter delimiter) {
+    public static List<List<String>> stringLinesDelimited(String resourceName, Delimiter delimiter) {
         return readResource(resourceName)
                 .map(e -> Arrays.stream(e.split(delimiter.value))
                         .collect(Collectors.toList()))
                 .collect(Collectors.toList());
     }
 
-    public static List<String> asStringLine(String resourceName, Delimiter delimiter) {
-        return Arrays.stream(ResourceReader.asString(resourceName)
+    public static List<String> oneLineStringsDelimited(String resourceName, Delimiter delimiter) {
+        return Arrays.stream(ResourceReader.stringLines(resourceName)
                         .getFirst().split(delimiter.value))
                 .collect(Collectors.toList());
     }
 
-    public static List<Integer> asInt(String resourceName) {
+    public static List<Integer> intLines(String resourceName) {
         return readResource(resourceName)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
 
-    public static List<List<Integer>> asIntList(String resourceName, Delimiter delimiter) {
+    public static List<List<Integer>> intLinesDelimited(String resourceName, Delimiter delimiter) {
         return readResource(resourceName)
                 .map(e -> Arrays.stream(e.split(delimiter.value))
                         .map(Integer::valueOf).collect(Collectors.toList()))
                 .collect(Collectors.toList());
     }
 
-    public static List<Integer> asIntLine(String resourceName, Delimiter delimiter) {
-        return Arrays.stream(ResourceReader.asString(resourceName)
+    public static List<Integer> oneLineIntsDelimited(String resourceName, Delimiter delimiter) {
+        return Arrays.stream(ResourceReader.stringLines(resourceName)
                         .getFirst().split(delimiter.value)).map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
