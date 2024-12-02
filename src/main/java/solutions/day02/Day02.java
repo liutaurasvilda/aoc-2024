@@ -3,28 +3,28 @@ package solutions.day02;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day02 {
+final class Day02 {
 
-    public static long safeReports(List<List<Integer>> levelReports) {
-        return levelReports.stream().filter(Day02::safeReport).count();
+    public static long safeReports(Reports reports) {
+        return reports.levels().stream().filter(Day02::safe).count();
     }
 
-    public static long safeReportsWithSingleBadLevelTolerance(List<List<Integer>> levelReports) {
-        return levelReports.stream().filter(Day02::withAtMostSingleBadLevel).count();
+    static long safeReportsWithSingleBadLevelTolerance(Reports reports) {
+        return reports.levels().stream().filter(Day02::safeWithAtMostSingleBadLevel).count();
     }
 
-    private static boolean withAtMostSingleBadLevel(List<Integer> levels) {
+    private static boolean safeWithAtMostSingleBadLevel(List<Integer> levels) {
         for (int i = 0; i < levels.size(); i++) {
-            var trimmedList = new ArrayList<>(levels);
-            trimmedList.remove(i);
-            if (safeReport(trimmedList)) {
+            var trimmedLevels = new ArrayList<>(levels);
+            trimmedLevels.remove(i);
+            if (safe(trimmedLevels)) {
                 return true;
             }
         }
         return false;
     }
 
-    private static boolean safeReport(List<Integer> levels) {
+    private static boolean safe(List<Integer> levels) {
         return (inOrder(levels) || inOrder(levels.reversed())) && safeGaps(levels);
     }
 
@@ -43,5 +43,8 @@ public class Day02 {
             gaps.add(Math.abs(levels.get(i) - levels.get(i+1)));
         }
         return gaps.stream().allMatch(e -> e >= 1 && e <= 3);
+    }
+
+    record Reports(List<List<Integer>> levels) {
     }
 }

@@ -3,9 +3,7 @@ package solutions.day02;
 import org.junit.jupiter.api.Test;
 import util.ResourceReader;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day02Test {
 
@@ -19,7 +17,7 @@ class Day02Test {
         assertEquals(349, Day02.safeReportsWithSingleBadLevelTolerance(levelReports()));
     }
 
-    private List<List<Integer>> levelReports() {
-        return ResourceReader.asIntList("day02.txt", ResourceReader.Delimiter.SPACE);
+    private Day02.Reports levelReports() {
+        return new Day02.Reports(ResourceReader.asIntList("day02.txt", ResourceReader.Delimiter.SPACE));
     }
 }
