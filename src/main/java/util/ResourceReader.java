@@ -33,6 +33,10 @@ public final class ResourceReader {
                 .collect(Collectors.toList());
     }
 
+    public static String oneLineString(String resourceName) {
+        return ResourceReader.stringLines(resourceName).getFirst();
+    }
+
     public static List<String> oneLineStringsDelimited(String resourceName, Delimiter delimiter) {
         return Arrays.stream(ResourceReader.stringLines(resourceName)
                         .getFirst().split(delimiter.value))
