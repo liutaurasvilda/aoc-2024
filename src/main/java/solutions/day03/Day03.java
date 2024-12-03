@@ -26,10 +26,8 @@ final class Day03 {
                 .map(e -> {
                     if (e.equals("do()")) {
                         execute.set(true);
-                        return 0;
                     } else if (e.equals("don't()")) {
                         execute.set(false);
-                        return 0;
                     } else if (execute.get()) {
                         return leftNumber(e) * rightNumber(e);
                     }
@@ -37,7 +35,6 @@ final class Day03 {
                 })
                 .mapToLong(Number::longValue)
                 .sum();
-
     }
 
     private static long leftNumber(String s) {
