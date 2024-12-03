@@ -17,7 +17,7 @@ final class Day03 {
                 .mapToLong(e -> e).sum();
     }
 
-    public static long evalMul2(ProgramMemory programMemory) {
+    public static long evalConditionalMul(ProgramMemory programMemory) {
         Pattern conditionalMul = Pattern.compile("(do\\(\\)|don't\\(\\)|mul\\(\\d{1,3},\\d{1,3}\\))");
         AtomicBoolean execute = new AtomicBoolean(true);
         return programMemory.values().stream().map(conditionalMul::matcher)
