@@ -18,7 +18,7 @@ final class Day03 {
     }
 
     public static long evalConditionalMul(ProgramMemory programMemory) {
-        Pattern conditionalMul = Pattern.compile("(do\\(\\)|don't\\(\\)|mul\\(\\d{1,3},\\d{1,3}\\))");
+        Pattern conditionalMul = Pattern.compile("do\\(\\)|don't\\(\\)|mul\\(\\d{1,3},\\d{1,3}\\)");
         AtomicBoolean execute = new AtomicBoolean(true);
         return programMemory.values().stream().map(conditionalMul::matcher)
                 .flatMap((Matcher::results))
@@ -33,8 +33,7 @@ final class Day03 {
                     }
                     return 0;
                 })
-                .mapToLong(Number::longValue)
-                .sum();
+                .mapToLong(Number::longValue).sum();
     }
 
     private static long leftNumber(String s) {
