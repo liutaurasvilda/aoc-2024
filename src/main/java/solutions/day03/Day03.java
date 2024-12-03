@@ -10,10 +10,7 @@ final class Day03 {
     public static long evalMul(ProgramMemory programMemory) {
         Pattern mul = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)");
         return programMemory.value().stream().map(mul::matcher)
-                .flatMap(matched -> matched.results()
-                        .map(MatchResult::group)
-                        .map(e -> Integer.parseInt(e.substring(e.indexOf("(") + 1, e.indexOf(",")))
-                                * Integer.parseInt(e.substring(e.indexOf(",") + 1, e.indexOf(")")))))
+                .flatMap(matched -> matched.results().map(MatchResult::group).map(e -> leftNumber(e) * rightNumber(e)))
                 .mapToLong(e -> e).sum();
     }
 
@@ -29,16 +26,21 @@ final class Day03 {
                     case "don't()" -> doInstruction = false;
                     default -> {
                         if (doInstruction) {
-                            var instruction = matcher.group();
-                            long n1 = Integer.parseInt(instruction.substring(instruction.indexOf("(") + 1, instruction.indexOf(",")));
-                            long n2 = Integer.parseInt(instruction.substring(instruction.indexOf(",") + 1, instruction.indexOf(")")));
-                            result += n1 * n2;
+                            result += leftNumber(matcher.group()) * rightNumber(matcher.group());
                         }
                     }
                 }
             }
         }
         return result;
+    }
+
+    private static long leftNumber(String s) {
+        return Long.parseLong(s.substring(s.indexOf("(") + 1, s.indexOf(",")));
+    }
+
+    private static long rightNumber(String s) {
+        return Long.parseLong(s.substring(s.indexOf(",") + 1, s.indexOf(")")));
     }
 
     record ProgramMemory(List<String> value) {
