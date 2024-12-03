@@ -1,6 +1,7 @@
 package solutions.day03;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,30 +10,34 @@ final class Day03 {
 
     public static long evalMul(ProgramMemory programMemory) {
         Pattern mul = Pattern.compile("mul\\(\\d{1,3},\\d{1,3}\\)");
-        return programMemory.value().stream().map(mul::matcher)
-                .flatMap(matched -> matched.results().map(MatchResult::group).map(e -> leftNumber(e) * rightNumber(e)))
+        return programMemory.values().stream().map(mul::matcher)
+                .flatMap(Matcher::results)
+                .map(MatchResult::group)
+                .map(e -> leftNumber(e) * rightNumber(e))
                 .mapToLong(e -> e).sum();
     }
 
     public static long evalMul2(ProgramMemory programMemory) {
-        Pattern pattern = Pattern.compile("(do\\(\\)|don't\\(\\)|mul\\(\\d{1,3},\\d{1,3}\\))");
-        long result = 0L;
-        var doInstruction = true;
-        for (int i = 0; i < programMemory.value().size(); i++) {
-            Matcher matcher = pattern.matcher(programMemory.value().get(i));
-            while (matcher.find()) {
-                switch (matcher.group()) {
-                    case "do()" -> doInstruction = true;
-                    case "don't()" -> doInstruction = false;
-                    default -> {
-                        if (doInstruction) {
-                            result += leftNumber(matcher.group()) * rightNumber(matcher.group());
-                        }
+        Pattern conditionalMul = Pattern.compile("(do\\(\\)|don't\\(\\)|mul\\(\\d{1,3},\\d{1,3}\\))");
+        AtomicBoolean execute = new AtomicBoolean(true);
+        return programMemory.values().stream().map(conditionalMul::matcher)
+                .flatMap((Matcher::results))
+                .map(MatchResult::group)
+                .map(e -> {
+                    if (e.equals("do()")) {
+                        execute.set(true);
+                        return 0;
+                    } else if (e.equals("don't()")) {
+                        execute.set(false);
+                        return 0;
+                    } else if (execute.get()) {
+                        return leftNumber(e) * rightNumber(e);
                     }
-                }
-            }
-        }
-        return result;
+                    return 0;
+                })
+                .mapToLong(Number::longValue)
+                .sum();
+
     }
 
     private static long leftNumber(String s) {
@@ -43,6 +48,6 @@ final class Day03 {
         return Long.parseLong(s.substring(s.indexOf(",") + 1, s.indexOf(")")));
     }
 
-    record ProgramMemory(List<String> value) {
+    record ProgramMemory(List<String> values) {
     }
 }
