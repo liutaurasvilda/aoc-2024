@@ -14,7 +14,7 @@ class Day03Test {
 
     @Test
     void part2() {
-
+        assertEquals(127092535, Day03.evalMul2(programMemory()));
     }
 
     private Day03.ProgramMemory programMemory() {
