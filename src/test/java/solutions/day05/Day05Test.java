@@ -24,10 +24,9 @@ class Day05Test {
     }
 
     private Day05.PrintManual printManual() {
-        var input = ResourceReader.stringLines("day05.txt");
         var pageOrdering = new HashSet<String>();
         var updates = new ArrayList<List<String>>();
-        input.forEach(e -> {
+        ResourceReader.stringLines("day05.txt").forEach(e -> {
             if (e.contains("|")) {
                 pageOrdering.add(e);
             }
