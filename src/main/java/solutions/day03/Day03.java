@@ -23,17 +23,19 @@ final class Day03 {
         return programMemory.values().stream().map(conditionalMul::matcher)
                 .flatMap((Matcher::results))
                 .map(MatchResult::group)
-                .map(e -> {
-                    if (e.equals("do()")) {
-                        execute.set(true);
-                    } else if (e.equals("don't()")) {
-                        execute.set(false);
-                    } else if (execute.get()) {
-                        return leftNumber(e) * rightNumber(e);
-                    }
-                    return 0;
-                })
+                .map(e -> eval(e, execute))
                 .mapToLong(Number::longValue).sum();
+    }
+
+    private static long eval(String e, AtomicBoolean execute) {
+        if (e.equals("do()")) {
+            execute.set(true);
+        } else if (e.equals("don't()")) {
+            execute.set(false);
+        } else if (execute.get()) {
+            return leftNumber(e) * rightNumber(e);
+        }
+        return 0;
     }
 
     private static long leftNumber(String s) {
