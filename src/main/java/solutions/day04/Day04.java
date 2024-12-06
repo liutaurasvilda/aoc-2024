@@ -7,7 +7,7 @@ final class Day04 {
     public static long xmas(List<List<String>> wordMap) {
         var result = 0;
         for (int i = 0; i < wordMap.size(); i++) {
-            for (int j = 0; j < wordMap.get(0).size(); j++) {
+            for (int j = 0; j < wordMap.get(i).size(); j++) {
                 result += left(wordMap, i, j);
                 result += right(wordMap, i, j);
                 result += up(wordMap, i, j);
@@ -24,7 +24,7 @@ final class Day04 {
     public static long masx(List<List<String>> wordMap) {
         var result = 0;
         for (int i = 0; i < wordMap.size(); i++) {
-            for (int j = 0; j < wordMap.get(0).size(); j++) {
+            for (int j = 0; j < wordMap.get(i).size(); j++) {
                 result += x(wordMap, i, j);
             }
         }
