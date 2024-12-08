@@ -1,7 +1,5 @@
 package solutions.day06;
 
-import util.ResourceReader;
-
 import java.util.List;
 
 final class Day06 {
@@ -14,14 +12,14 @@ final class Day06 {
         var cycles = 0;
         for (int i = 0; i < map.size(); i++) {
             for (int j = 0; j < map.getFirst().size(); j++) {
-                var updatedMap = ResourceReader.stringLinesDelimited("day06.txt", ResourceReader.Delimiter.NO_SPACE);
-                if (updatedMap.get(i).get(j).equals("#") || updatedMap.get(i).get(j).equals("^")) {
+                if (map.get(i).get(j).equals("#") || map.get(i).get(j).equals("^")) {
                     continue;
                 }
-                updatedMap.get(i).set(j, "#");
-                if (explore(updatedMap).inCycle()) {
+                map.get(i).set(j, "#");
+                if (explore(map).inCycle()) {
                     cycles++;
                 }
+                map.get(i).set(j, ".");
             }
         }
         return cycles;
