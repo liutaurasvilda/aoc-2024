@@ -13,7 +13,12 @@ class Day07Test {
 
     @Test
     void part1() {
-        assertEquals(3749, Day07.calibrationResult(equations()));
+        assertEquals(1038838357795L, Day07.calibrationResult(equations(), List.of("+", "*")));
+    }
+
+    @Test
+    void part2() {
+        assertEquals(254136560217241L, Day07.calibrationResult(equations(), List.of("+", "*", "||")));
     }
 
     @Test
@@ -33,7 +38,7 @@ class Day07Test {
     }
 
     private List<Day07.Equation> equations() {
-        var input = ResourceReader.stringLines("day07_test.txt");
+        var input = ResourceReader.stringLines("day07.txt");
         return input.stream().map(e -> {
             String[] splitInput = e.split(":");
             var testValue = Long.parseLong(splitInput[0]);
