@@ -51,7 +51,7 @@ final class Day07 {
         for (int i = 0; i < operators.size(); i++) {
             var newPermutation = new ArrayList<>(permutation);
             newPermutation.add(operators.get(i));
-            permute(operators, k-1, newPermutation, result);
+            permute(operators, k - 1, newPermutation, result);
         }
     }
 
