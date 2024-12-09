@@ -45,7 +45,6 @@ final class Day07 {
     private static void permute(List<String> operators, int k, List<String> permutation, List<List<String>> result) {
         if (k == 0) {
             result.add(new ArrayList<>(permutation));
-            permutation.clear();
             return;
         }
         for (int i = 0; i < operators.size(); i++) {
