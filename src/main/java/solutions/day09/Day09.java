@@ -5,32 +5,16 @@ import java.util.List;
 
 final class Day09 {
 
-    public static long filesystemChecksum(List<Integer> diskMap) {
+    public static long filesystemChecksum1(List<Integer> diskMap) {
         var filesystem = buildFilesystem(diskMap);
-        var defragmentedFilesystem = defragment(filesystem);
+        var defragmentedFilesystem = defragmentBlockBased(filesystem);
         return calculateChecksum(defragmentedFilesystem);
     }
 
-    private static long calculateChecksum(List<String> filesystem) {
-        var checksum = 0L;
-        for (int i = 0; i < filesystem.size(); i++) {
-            checksum += Long.parseLong(filesystem.get(i)) * i;
-        }
-        return checksum;
-    }
-
-    private static List<String> defragment(List<String> filesystem) {
-        var defragmentedFilesystem = new ArrayList<>(filesystem);
-        for (int i = 0; i < defragmentedFilesystem.size(); i++) {
-            if (defragmentedFilesystem.get(i).equals(".")) {
-                defragmentedFilesystem.set(i, defragmentedFilesystem.getLast());
-                defragmentedFilesystem.removeLast();
-                while (defragmentedFilesystem.getLast().equals(".")) {
-                    defragmentedFilesystem.removeLast();
-                }
-            }
-        }
-        return defragmentedFilesystem;
+    public static long filesystemChecksum2(List<Integer> diskMap) {
+        var filesystem = buildFilesystem(diskMap);
+        var defragmentedFilesystem = defragmentFileBased(filesystem);
+        return calculateChecksum(defragmentedFilesystem);
     }
 
     private static ArrayList<String> buildFilesystem(List<Integer> diskMap) {
@@ -52,5 +36,44 @@ final class Day09 {
             }
         }
         return filesystem;
+    }
+
+    private static List<String> defragmentBlockBased(List<String> filesystem) {
+        var defragmentedFilesystem = new ArrayList<>(filesystem);
+        for (int i = 0; i < defragmentedFilesystem.size(); i++) {
+            if (defragmentedFilesystem.get(i).equals(".")) {
+                defragmentedFilesystem.set(i, defragmentedFilesystem.getLast());
+                defragmentedFilesystem.removeLast();
+                while (defragmentedFilesystem.getLast().equals(".")) {
+                    defragmentedFilesystem.removeLast();
+                }
+            }
+        }
+        return defragmentedFilesystem;
+    }
+
+    private static List<String> defragmentFileBased(List<String> filesystem) {
+        var defragmentedFilesystem = new ArrayList<>(filesystem);
+        for (int i = 0; i < defragmentedFilesystem.size(); i++) {
+            if (defragmentedFilesystem.get(i).equals(".")) {
+                defragmentedFilesystem.set(i, defragmentedFilesystem.getLast());
+                defragmentedFilesystem.removeLast();
+                while (defragmentedFilesystem.getLast().equals(".")) {
+                    defragmentedFilesystem.removeLast();
+                }
+            }
+        }
+        return defragmentedFilesystem;
+    }
+
+    private static long calculateChecksum(List<String> filesystem) {
+        var checksum = 0L;
+        for (int i = 0; i < filesystem.size(); i++) {
+            if (filesystem.get(i).equals(".")) {
+                continue;
+            }
+            checksum += Long.parseLong(filesystem.get(i)) * i;
+        }
+        return checksum;
     }
 }
