@@ -43,10 +43,9 @@ final class Day09 {
         for (int i = 0; i < defragmentedFilesystem.size(); i++) {
             if (defragmentedFilesystem.get(i).equals(".")) {
                 defragmentedFilesystem.set(i, defragmentedFilesystem.getLast());
-                defragmentedFilesystem.removeLast();
-                while (defragmentedFilesystem.getLast().equals(".")) {
+                do {
                     defragmentedFilesystem.removeLast();
-                }
+                } while (defragmentedFilesystem.getLast().equals("."));
             }
         }
         return defragmentedFilesystem;
@@ -54,14 +53,42 @@ final class Day09 {
 
     private static List<String> defragmentFileBased(List<String> filesystem) {
         var defragmentedFilesystem = new ArrayList<>(filesystem);
-        for (int i = 0; i < defragmentedFilesystem.size(); i++) {
-            if (defragmentedFilesystem.get(i).equals(".")) {
-                defragmentedFilesystem.set(i, defragmentedFilesystem.getLast());
-                defragmentedFilesystem.removeLast();
-                while (defragmentedFilesystem.getLast().equals(".")) {
-                    defragmentedFilesystem.removeLast();
+        for (int i = defragmentedFilesystem.size()-1; i > 0; i--) {
+            var value = defragmentedFilesystem.get(i);
+            if (value.equals(".")) {
+                continue;
+            }
+
+            var indicesFrom = new ArrayList<Integer>();
+            for (int j = i; j > 0 && defragmentedFilesystem.get(j).equals(value); j--) {
+                indicesFrom.add(j);
+            }
+
+            var indicesTo = new ArrayList<Integer>();
+            for (int k = 0; k < defragmentedFilesystem.size() && k <= indicesFrom.getLast(); k++) {
+                if (defragmentedFilesystem.get(k).equals(".")) {
+                    indicesTo.add(k);
+                } else if (!indicesTo.isEmpty()) {
+                    if (indicesTo.size() >= indicesFrom.size()) {
+                        break;
+                    } else {
+                        indicesTo.clear();
+                    }
                 }
             }
+
+            if (!indicesTo.isEmpty()) {
+                var tempIndicesFrom = new ArrayList<>(indicesFrom);
+                for (int to : indicesTo) {
+                    if (!tempIndicesFrom.isEmpty()) {
+                        int from = tempIndicesFrom.getFirst();
+                        tempIndicesFrom.removeFirst();
+                        defragmentedFilesystem.set(to, defragmentedFilesystem.get(from));
+                        defragmentedFilesystem.set(from, ".");
+                    }
+                }
+            }
+            i = indicesFrom.getLast();
         }
         return defragmentedFilesystem;
     }
