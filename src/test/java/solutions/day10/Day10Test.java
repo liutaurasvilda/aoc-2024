@@ -14,6 +14,11 @@ class Day10Test {
         assertEquals(501, Day10.trailheadsScore(topographicMap()));
     }
 
+    @Test
+    void part2() {
+        assertEquals(1017, Day10.trailheadsRating(topographicMap()));
+    }
+
     private List<List<Integer>> topographicMap() {
         return ResourceReader.intLinesDelimited("day10.txt", ResourceReader.Delimiter.NO_SPACE);
     }
