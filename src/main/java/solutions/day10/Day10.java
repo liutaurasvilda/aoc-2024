@@ -22,7 +22,6 @@ final class Day10 {
     private static HashMap<Location, Integer> buildTrailsMap(List<List<Integer>> topographicMap) {
         var height = topographicMap.size() - 1;
         var width = topographicMap.getFirst().size() - 1;
-
         var trailsMap = new HashMap<Location, Integer>();
         for (int i = 0; i < topographicMap.size(); i++) {
             for (int j = 0; j < topographicMap.getFirst().size(); j++) {
