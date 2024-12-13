@@ -11,10 +11,15 @@ class Day11Test {
 
     @Test
     void part1() {
-        assertEquals(55312, Day11.stonesCount(stones()));
+        assertEquals(186175, Day11.stonesCount(25, stones()));
     }
 
-    private List<Integer> stones() {
-        return ResourceReader.oneLineIntsDelimited("day11_test.txt", ResourceReader.Delimiter.SPACE);
+    @Test
+    void part2() {
+        assertEquals(186175, Day11.stonesCount(25, stones()));
+    }
+
+    private List<String> stones() {
+        return ResourceReader.oneLineStringsDelimited("day11.txt", ResourceReader.Delimiter.SPACE);
     }
 }
