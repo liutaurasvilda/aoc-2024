@@ -24,6 +24,14 @@ public final class Location {
         return this;
     }
 
+    public int row() {
+        return row;
+    }
+
+    public int column() {
+        return column;
+    }
+
     public List<Location> neighbourhood() {
         Predicate<Location> withinRowBoundaries = maxRow > 0
                 ? e -> e.row >= 0 && e.row <= maxRow

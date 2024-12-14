@@ -12,7 +12,10 @@ class Day12Test {
 
     @Test
     void part1() {
-        assertEquals(0L, Day12.fencingPrice(gardenPlots("day12_test1.txt")));
+        assertEquals(140, Day12.fencingPrice(gardenPlots("day12_test1.txt")));
+        assertEquals(772, Day12.fencingPrice(gardenPlots("day12_test2.txt")));
+        assertEquals(1930, Day12.fencingPrice(gardenPlots("day12_test3.txt")));
+        assertEquals(1449902, Day12.fencingPrice(gardenPlots("day12.txt")));
     }
 
     @Test
