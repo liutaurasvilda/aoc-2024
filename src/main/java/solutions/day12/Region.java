@@ -37,12 +37,12 @@ final class Region {
     }
 
     public long perimeter() {
-        var perimeter = 0;
+        var perimeter = 0L;
         for (Location location : gardenPlots) {
-            perimeter += 4 - location.neighbourhood().size();
-            for (Location neighbour : location.neighbourhood()) {
-                perimeter += gardenPlots.contains(neighbour) ? 0 : 1;
-            }
+            var outboundSides = 4 - location.neighbourhood().size();
+            var untouchedSides = location.neighbourhood().stream()
+                    .mapToLong(e -> !gardenPlots.contains(e) ? 1 : 0).sum();
+            perimeter += (outboundSides + untouchedSides);
         }
         return perimeter;
     }
