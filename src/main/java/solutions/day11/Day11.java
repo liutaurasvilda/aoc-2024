@@ -15,7 +15,7 @@ final class Day11 {
         return mapping.values().stream().mapToLong(e -> e).sum();
     }
 
-    private static HashMap<String, Long> blink(Map<String, Long> mapping) {
+    private static Map<String, Long> blink(Map<String, Long> mapping) {
         var newMapping = new HashMap<String, Long>();
         for (var entry : mapping.entrySet()) {
             var stone = entry.getKey();
