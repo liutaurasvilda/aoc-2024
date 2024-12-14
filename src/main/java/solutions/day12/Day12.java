@@ -7,7 +7,15 @@ import java.util.List;
 
 final class Day12 {
 
-    public static long fencingPrice(List<List<String>> gardenPlots) {
+    public static long perimeterFencingPrice(List<List<String>> gardenPlots) {
+        return buildRegions(gardenPlots).stream().mapToLong(Region::perimeterFencingPrice).sum();
+    }
+
+    public static long sidesFencingPrice(List<List<String>> gardenPlots) {
+        return buildRegions(gardenPlots).stream().mapToLong(Region::sidesFencingPrice).sum();
+    }
+
+    private static ArrayList<Region> buildRegions(List<List<String>> gardenPlots) {
         var regions = new ArrayList<Region>();
         int maxHeightIndex = gardenPlots.size()-1;
         int maxWidthIndex = gardenPlots.getFirst().size()-1;
@@ -21,7 +29,7 @@ final class Day12 {
                 }
             }
         }
-        return regions.stream().mapToLong(Region::fencingPrice).sum();
+        return regions;
     }
 
     private static void dfs(Location current, Region region, List<List<String>> gardenPlots) {

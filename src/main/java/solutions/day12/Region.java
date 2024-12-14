@@ -47,7 +47,16 @@ final class Region {
         return perimeter;
     }
 
-    public long fencingPrice() {
+    public long sides() {
+        // TODO
+        return 0;
+    }
+
+    public long perimeterFencingPrice() {
         return area() * perimeter();
+    }
+
+    public long sidesFencingPrice() {
+        return area() * sides();
     }
 }
