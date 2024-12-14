@@ -1,4 +1,4 @@
-package solutions.day10;
+package common;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +23,7 @@ public final class Location {
         return new Location(rowIndex, columnIndex, maxRowIndex, maxColumnIndex);
     }
 
-    List<Location> neighborhood() {
+    public List<Location> neighborhood() {
         return Arrays.stream(Direction.values())
                 .map(direction -> direction.neighborOf(this))
                 .filter(e -> e.rowIndex >= 0 && e.rowIndex <= maxRowIndex)
@@ -43,14 +43,6 @@ public final class Location {
     @Override
     public int hashCode() {
         return Objects.hash(rowIndex, columnIndex);
-    }
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "rowIndex=" + rowIndex +
-                ", columnIndex=" + columnIndex +
-                '}';
     }
 
     private enum Direction {
