@@ -16,7 +16,7 @@ class Day11Test {
 
     @Test
     void part2() {
-        assertEquals(186175, Day11.stonesCount(25, stones()));
+        assertEquals(220566831337810L, Day11.stonesCount(75, stones()));
     }
 
     private List<String> stones() {
