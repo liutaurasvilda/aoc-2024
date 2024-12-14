@@ -24,6 +24,10 @@ final class Region {
         gardenPlots.addAll(locations);
     }
 
+    public boolean inRegion(Location location) {
+        return gardenPlots.contains(location);
+    }
+
     public String plant() {
         return plant;
     }
