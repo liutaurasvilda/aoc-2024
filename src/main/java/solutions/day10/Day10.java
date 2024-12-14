@@ -27,7 +27,7 @@ final class Day10 {
         var trailsMap = new HashMap<Location, Integer>();
         for (int i = 0; i < topographicMap.size(); i++) {
             for (int j = 0; j < topographicMap.getFirst().size(); j++) {
-                trailsMap.put(Location.of(i, j, height, width), topographicMap.get(i).get(j));
+                trailsMap.put(new Location(i, j).withBoundaries(height, width), topographicMap.get(i).get(j));
             }
         }
         return trailsMap;
@@ -55,7 +55,7 @@ final class Day10 {
     private static void dfs1(Location current, Map<Location, Integer> visited, Map<Location, Integer> trailsMap) {
         if (!visited.containsKey(current)) {
             visited.put(current, trailsMap.get(current));
-            current.neighborhood().stream()
+            current.neighbourhood().stream()
                     .filter(e -> trailsMap.get(current) + 1 == trailsMap.get(e))
                     .forEach(e -> dfs1(e, visited, trailsMap));
         }
@@ -65,7 +65,7 @@ final class Day10 {
         if (trailsMap.get(current) == 9) {
             hit9.incrementAndGet();
         } else {
-            current.neighborhood().stream()
+            current.neighbourhood().stream()
                     .filter(e -> trailsMap.get(current) + 1 == trailsMap.get(e))
                     .forEach(e -> dfs2(e, hit9, trailsMap));
         }

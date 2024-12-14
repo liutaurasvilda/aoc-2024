@@ -3,31 +3,39 @@ package common;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public final class Location {
 
-    private final int rowIndex;
-    private final int columnIndex;
+    private final int row;
+    private final int column;
 
-    private final int maxRowIndex;
-    private final int maxColumnIndex;
+    private int maxRow;
+    private int maxColumn;
 
-    private Location(int rowIndex, int columnIndex, int maxRowIndex, int maxColumnIndex) {
-        this.rowIndex = rowIndex;
-        this.columnIndex = columnIndex;
-        this.maxRowIndex = maxRowIndex;
-        this.maxColumnIndex = maxColumnIndex;
+    public Location(int row, int column) {
+        this.row = row;
+        this.column = column;
     }
 
-    public static Location of(int rowIndex, int columnIndex, int maxRowIndex, int maxColumnIndex) {
-        return new Location(rowIndex, columnIndex, maxRowIndex, maxColumnIndex);
+    public Location withBoundaries(int maxRow, int maxColumn) {
+        this.maxRow = maxRow;
+        this.maxColumn = maxColumn;
+        return this;
     }
 
-    public List<Location> neighborhood() {
+    public List<Location> neighbourhood() {
+        Predicate<Location> withinRowBoundaries = maxRow > 0
+                ? e -> e.row >= 0 && e.row <= maxRow
+                : e -> true;
+        Predicate<Location> withinColumnBoundaries = maxColumn > 0
+                ? e -> e.column >= 0 && e.column <= e.maxColumn
+                : e -> true;
+
         return Arrays.stream(Direction.values())
-                .map(direction -> direction.neighborOf(this))
-                .filter(e -> e.rowIndex >= 0 && e.rowIndex <= maxRowIndex)
-                .filter(e -> e.columnIndex >= 0 && e.columnIndex <= e.maxColumnIndex)
+                .map(e -> e.neighborOf(this))
+                .filter(withinRowBoundaries)
+                .filter(withinColumnBoundaries)
                 .toList();
     }
 
@@ -36,17 +44,18 @@ public final class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return rowIndex == location.rowIndex &&
-                columnIndex == location.columnIndex;
+        return row == location.row &&
+                column == location.column;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rowIndex, columnIndex);
+        return Objects.hash(row, column);
     }
 
     private enum Direction {
-        LEFT(0, -1), RIGHT(0, +1), TOP(-1, 0), BOTTOM(+1, 0);
+        LEFT(0, -1), RIGHT(0, +1),
+        TOP(-1, 0), BOTTOM(+1, 0);
 
         private final int rowOffset;
         private final int columnOffset;
@@ -57,8 +66,8 @@ public final class Location {
         }
 
         private Location neighborOf(Location location) {
-            return Location.of(location.rowIndex + rowOffset,
-                    location.columnIndex + columnOffset, location.maxRowIndex, location.maxColumnIndex);
+            return new Location(location.row + rowOffset, location.column + columnOffset)
+                    .withBoundaries(location.maxRow, location.maxColumn);
         }
     }
 }
