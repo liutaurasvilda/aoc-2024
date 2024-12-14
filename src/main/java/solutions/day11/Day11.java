@@ -22,7 +22,7 @@ final class Day11 {
             var stoneCount = entry.getValue();
             if (stone.equals("0")) {
                 newMapping.merge("1", stoneCount, Long::sum);
-            } else if ((stone.length() & 1) == 0) {
+            } else if (stone.length() % 2 == 0) {
                 var left = stone.substring(0, stone.length() / 2);
                 var right = stone.substring(stone.length() / 2);
                 while (right.startsWith("0") && !right.equals("0")) {
