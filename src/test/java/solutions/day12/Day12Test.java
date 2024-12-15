@@ -1,7 +1,5 @@
 package solutions.day12;
 
-import common.Location;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import util.ResourceReader;
 
