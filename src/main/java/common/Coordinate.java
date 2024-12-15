@@ -1,4 +1,4 @@
 package common;
 
-public record Coordinate(int x, int y) {
+public record Coordinate(long x, long y) {
 }
