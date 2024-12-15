@@ -7,6 +7,8 @@ import java.util.function.Function;
 
 final class Day13 {
 
+    private static final int A_TOKENS = 3;
+    private static final int B_TOKENS = 1;
 
     public static long fewestTokens(List<ClawMachine> clawMachines) {
         return 0;
