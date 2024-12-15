@@ -8,7 +8,6 @@ import java.util.function.Function;
 final class Day13 {
 
     private static final int MAX_BUTTON_PRESS = 100;
-
     private static final int A_BUTTON_TOKENS = 3;
     private static final int B_BUTTON_TOKENS = 1;
 
