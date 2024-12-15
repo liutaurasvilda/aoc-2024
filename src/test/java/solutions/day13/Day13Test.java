@@ -95,7 +95,6 @@ class Day13Test {
                     new Coordinate(prizeX, prizeY)
             );
             clawMachines.add(clawMachine);
-
             i++;
         }
         return clawMachines;
