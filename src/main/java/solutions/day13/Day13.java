@@ -12,10 +12,10 @@ final class Day13 {
     private static final int B_BUTTON_TOKENS = 1;
 
     public static long fewestTokens(List<ClawMachine> clawMachines) {
-        var result = 0;
+        var result = 0L;
         for (ClawMachine clawMachine : clawMachines) {
-            for (int aPress = 0; aPress < MAX_BUTTON_PRESS; aPress++) {
-                for (int bPress = 0; bPress < MAX_BUTTON_PRESS; bPress++) {
+            for (long aPress = 0; aPress < MAX_BUTTON_PRESS; aPress++) {
+                for (long bPress = 0; bPress < MAX_BUTTON_PRESS; bPress++) {
                     var aX = clawMachine.a().x().apply(aPress);
                     var bX = clawMachine.b().x().apply(bPress);
                     var abX = aX + bX;
@@ -34,7 +34,7 @@ final class Day13 {
     }
 
     record ClawMachine(Button a, Button b, Coordinate prize) {
-        record Button(String label, Function<Integer, Integer> x, Function<Integer, Integer> y) {
+        record Button(String label, Function<Long, Long> x, Function<Long, Long> y) {
         }
     }
 }
