@@ -32,6 +32,22 @@ public final class Location {
         return column;
     }
 
+    public Location leftNeighbour() {
+        return Direction.LEFT.neighborOf(this);
+    }
+
+    public Location rightNeighbour() {
+        return Direction.RIGHT.neighborOf(this);
+    }
+
+    public Location topNeighbour() {
+        return Direction.TOP.neighborOf(this);
+    }
+
+    public Location bottomNeighbour() {
+        return Direction.BOTTOM.neighborOf(this);
+    }
+
     public List<Location> neighbourhood() {
         Predicate<Location> withinRowBoundaries = maxRow > 0
                 ? e -> e.row >= 0 && e.row <= maxRow
