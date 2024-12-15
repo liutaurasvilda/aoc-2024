@@ -21,6 +21,7 @@ class Day12Test {
     void part2() {
         assertEquals(80, Day12.sidesFencingPrice(gardenPlots("day12_test1.txt")));
         assertEquals(436, Day12.sidesFencingPrice(gardenPlots("day12_test2.txt")));
+        assertEquals(1206, Day12.sidesFencingPrice(gardenPlots("day12_test3.txt")));
         assertEquals(236, Day12.sidesFencingPrice(gardenPlots("day12_test4.txt")));
         assertEquals(368, Day12.sidesFencingPrice(gardenPlots("day12_test5.txt")));
         assertEquals(0, Day12.sidesFencingPrice(gardenPlots("day12.txt")));
