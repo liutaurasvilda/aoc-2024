@@ -12,8 +12,8 @@ final class Day13 {
     private static final int B_BUTTON_TOKENS = 1;
 
     public static long fewestTokens(List<ClawMachine> clawMachines) {
-        var result = 0L;
-        for (ClawMachine clawMachine : clawMachines) {
+        return clawMachines.stream().mapToLong(clawMachine -> {
+            var result = 0L;
             for (long aPressed = 0; aPressed < MAX_BUTTON_PRESS; aPressed++) {
                 for (long bPressed = 0; bPressed < MAX_BUTTON_PRESS; bPressed++) {
                     if (clawMachine.won(aPressed, bPressed)) {
@@ -21,19 +21,19 @@ final class Day13 {
                     }
                 }
             }
-        }
-        return result;
+            return result;
+        }).sum();
     }
 
     record ClawMachine(Button a, Button b, Coordinate prize) {
 
-        boolean won(long aPress, long bPress) {
-            var aX = a.x.apply(aPress);
-            var bX = b.x.apply(bPress);
+        boolean won(long aPressed, long bPressed) {
+            var aX = a.x.apply(aPressed);
+            var bX = b.x.apply(bPressed);
             var abX = aX + bX;
 
-            var aY = a.y.apply(aPress);
-            var bY = b.y.apply(bPress);
+            var aY = a.y.apply(aPressed);
+            var bY = b.y.apply(bPressed);
             var abY = aY + bY;
 
             return prize.equals(new Coordinate(abX, abY));
