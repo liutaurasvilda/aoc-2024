@@ -90,36 +90,24 @@ final class Region {
         bottomSides.values().forEach(Collections::sort);
 
         var gaps = 0;
+        gaps += countGaps(leftSides);
+        gaps += countGaps(rightSides);
+        gaps += countGaps(topSides);
+        gaps += countGaps(bottomSides);
 
-        for (Map.Entry<Integer, List<Integer>> entry : leftSides.entrySet()) {
-            for (int i = 0; i < entry.getValue().size()-1; i++) {
-                if (entry.getValue().get(i) + 1 != entry.getValue().get(i+1)) {
-                    gaps++;
-                }
-            }
-        }
-        for (Map.Entry<Integer, List<Integer>> entry : rightSides.entrySet()) {
-            for (int i = 0; i < entry.getValue().size()-1; i++) {
-                if (entry.getValue().get(i) + 1 != entry.getValue().get(i+1)) {
-                    gaps++;
-                }
-            }
-        }
-        for (Map.Entry<Integer, List<Integer>> entry : topSides.entrySet()) {
-            for (int i = 0; i < entry.getValue().size()-1; i++) {
-                if (entry.getValue().get(i) + 1 != entry.getValue().get(i+1)) {
-                    gaps++;
-                }
-            }
-        }
-        for (Map.Entry<Integer, List<Integer>> entry : bottomSides.entrySet()) {
-            for (int i = 0; i < entry.getValue().size()-1; i++) {
-                if (entry.getValue().get(i) + 1 != entry.getValue().get(i+1)) {
-                    gaps++;
-                }
-            }
-        }
         return leftSides.size() + rightSides.size() + topSides.size() + bottomSides.size() + gaps;
+    }
+
+    private static int countGaps(Map<Integer, List<Integer>> sides) {
+        var gaps = 0;
+        for (List<Integer> elevation : sides.values()) {
+            for (int i = 0; i < elevation.size()-1; i++) {
+                if (elevation.get(i) + 1 != elevation.get(i+1)) {
+                    gaps++;
+                }
+            }
+        }
+        return gaps;
     }
 
     public long perimeterFencingPrice() {
