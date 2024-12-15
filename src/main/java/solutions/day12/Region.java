@@ -55,32 +55,16 @@ final class Region {
 
         for (Location plot : gardenPlots) {
             if (!gardenPlots.contains(plot.leftNeighbour())) {
-                if (leftSides.containsKey(plot.leftNeighbour().column())) {
-                    leftSides.get(plot.leftNeighbour().column()).add(plot.row());
-                } else {
-                    leftSides.put(plot.leftNeighbour().column(), new ArrayList<>(List.of(plot.row())));
-                }
+                addSide(leftSides, plot.leftNeighbour().column(), plot.row());
             }
             if (!gardenPlots.contains(plot.rightNeighbour())) {
-                if (rightSides.containsKey(plot.rightNeighbour().column())) {
-                    rightSides.get(plot.rightNeighbour().column()).add(plot.row());
-                } else {
-                    rightSides.put(plot.rightNeighbour().column(), new ArrayList<>(List.of(plot.row())));
-                }
+                addSide(rightSides, plot.rightNeighbour().column(), plot.row());
             }
             if (!gardenPlots.contains(plot.topNeighbour())) {
-                if (topSides.containsKey(plot.topNeighbour().row())) {
-                    topSides.get(plot.topNeighbour().row()).add(plot.column());
-                } else {
-                    topSides.put(plot.topNeighbour().row(), new ArrayList<>(List.of(plot.column())));
-                }
+                addSide(topSides, plot.topNeighbour().row(), plot.column());
             }
             if (!gardenPlots.contains(plot.bottomNeighbour())) {
-                if (bottomSides.containsKey(plot.bottomNeighbour().row())) {
-                    bottomSides.get(plot.bottomNeighbour().row()).add(plot.column());
-                } else {
-                    bottomSides.put(plot.bottomNeighbour().row(), new ArrayList<>(List.of(plot.column())));
-                }
+                addSide(bottomSides, plot.bottomNeighbour().row(), plot.column());
             }
         }
 
@@ -89,13 +73,17 @@ final class Region {
         topSides.values().forEach(Collections::sort);
         bottomSides.values().forEach(Collections::sort);
 
-        var gaps = 0;
-        gaps += countGaps(leftSides);
-        gaps += countGaps(rightSides);
-        gaps += countGaps(topSides);
-        gaps += countGaps(bottomSides);
+        var levelGaps = countGaps(leftSides) + countGaps(rightSides) + countGaps(topSides) + countGaps(bottomSides);
 
-        return leftSides.size() + rightSides.size() + topSides.size() + bottomSides.size() + gaps;
+        return leftSides.size() + rightSides.size() + topSides.size() + bottomSides.size() + levelGaps;
+    }
+
+    private static void addSide(Map<Integer, List<Integer>> sides, int side, int level) {
+        if (sides.containsKey(side)) {
+            sides.get(side).add(level);
+        } else {
+            sides.put(side, new ArrayList<>(List.of(level)));
+        }
     }
 
     private static int countGaps(Map<Integer, List<Integer>> sides) {
