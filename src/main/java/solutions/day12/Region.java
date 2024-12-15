@@ -88,9 +88,9 @@ final class Region {
 
     private static int countGaps(Map<Integer, List<Integer>> sides) {
         var gaps = 0;
-        for (List<Integer> elevation : sides.values()) {
-            for (int i = 0; i < elevation.size()-1; i++) {
-                if (elevation.get(i) + 1 != elevation.get(i+1)) {
+        for (List<Integer> level : sides.values()) {
+            for (int i = 0; i < level.size()-1; i++) {
+                if (level.get(i) + 1 != level.get(i+1)) {
                     gaps++;
                 }
             }
