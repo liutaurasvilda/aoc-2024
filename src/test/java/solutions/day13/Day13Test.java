@@ -2,7 +2,9 @@ package solutions.day13;
 
 import common.Coordinate;
 import org.junit.jupiter.api.Test;
+import util.ResourceReader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,7 +57,40 @@ class Day13Test {
     }
 
     private List<Day13.ClawMachine> clawMachines() {
-        // TODO parse
-        return List.of();
+        var input = ResourceReader.stringLines("day13_test.txt");
+        var clawMachines = new ArrayList<Day13.ClawMachine>();
+        for (int i = 0; i < input.size(); i = i + 3) {
+            var a = input.get(i);
+            var b = input.get(i+1);
+            var prize = input.get(i+2);
+
+            var aSplit = a.split(": ");
+            var aLabel = aSplit[0].substring(aSplit[0].length()-1);
+            var aF = aSplit[1].split(", ");
+            var aX = Integer.parseInt(aF[0].split("\\+")[1]);
+            var aY = Integer.parseInt(aF[1].split("\\+")[1]);
+
+            var bSplit = b.split(": ");
+            var bLabel = bSplit[0].substring(bSplit[0].length()-1);
+            var bF = bSplit[1].split(", ");
+            var bX = Integer.parseInt(bF[0].split("\\+")[1]);
+            var bY = Integer.parseInt(bF[1].split("\\+")[1]);
+
+            var prizeSplit = prize.split(", ");
+            var prizeLeftSplit = prizeSplit[0].split("=");
+            var prizeRightSplit = prizeSplit[1].split("=");
+            var prizeX = Integer.parseInt(prizeLeftSplit[1]);
+            var prizeY = Integer.parseInt(prizeRightSplit[1]);
+
+            var clawMachine = new Day13.ClawMachine(
+                    new Day13.ClawMachine.Button(aLabel, x -> x + aX, y -> y + aY),
+                    new Day13.ClawMachine.Button(bLabel, x -> x + bX, y -> y + bY),
+                    new Coordinate(prizeX, prizeY)
+            );
+            clawMachines.add(clawMachine);
+
+            i++;
+        }
+        return clawMachines;
     }
 }
