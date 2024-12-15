@@ -3,7 +3,6 @@ package solutions.day12;
 import common.Location;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 final class Region {
@@ -18,10 +17,6 @@ final class Region {
 
     public void addGardenPlot(Location location) {
         gardenPlots.add(location);
-    }
-
-    public void addGardenPlots(List<Location> locations) {
-        gardenPlots.addAll(locations);
     }
 
     public boolean contains(Location location) {
