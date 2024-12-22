@@ -15,6 +15,11 @@ class Day14Test {
         assertEquals(229421808, Day14.safetyFactor(robots()));
     }
 
+    @Test
+    void part2() {
+        assertEquals(6577, Day14.easterEgg(robots()));
+    }
+
     private List<Day14.Robot> robots() {
         return ResourceReader.stringLines("day14.txt").stream()
                 .map(e -> {
