@@ -11,7 +11,8 @@ public class Robot {
     private Direction direction;
 
     private final Set<Location> visited;
-    private final Map<Map.Entry<Location, Direction>, Integer> rightTurns;
+    private final Map<Map.Entry<Location, Direction>, Integer> clockwiseTurns;
+    private final Map<Map.Entry<Location, Direction>, Integer> antiClockwiseTurns;
 
     public Robot(Location location) {
         this(location, Direction.UNDEFINED);
@@ -22,7 +23,8 @@ public class Robot {
         this.direction = direction;
         this.visited = new HashSet<>();
         this.visited.add(this.location);
-        this.rightTurns = new HashMap<>();
+        this.clockwiseTurns = new HashMap<>();
+        this.antiClockwiseTurns = new HashMap<>();
     }
 
     public void faceUp() {
@@ -41,9 +43,14 @@ public class Robot {
         direction = Direction.RIGHT;
     }
 
-    public void turnRight() {
+    public void turnClockwise() {
         direction = direction.turnClockwise();
-        rightTurns.merge(Map.entry(location, direction), 1, Integer::sum);
+        clockwiseTurns.merge(Map.entry(location, direction), 1, Integer::sum);
+    }
+
+    public void turnAntiClockwise() {
+        direction = direction.turnAntiClockwise();
+        antiClockwiseTurns.merge(Map.entry(location, direction), 1, Integer::sum);
     }
 
     public Location move() {
@@ -69,7 +76,11 @@ public class Robot {
         return visited;
     }
 
-    public boolean inCycle() {
-        return rightTurns.values().stream().anyMatch(e -> e > 1);
+    public boolean inClockwiseCycle() {
+        return clockwiseTurns.values().stream().anyMatch(e -> e > 1);
+    }
+
+    public boolean inAntiClockwiseCycle() {
+        return antiClockwiseTurns.values().stream().anyMatch(e -> e > 1);
     }
 }
