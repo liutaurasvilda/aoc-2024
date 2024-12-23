@@ -3,8 +3,6 @@ package solutions.day15;
 import org.junit.jupiter.api.Test;
 import util.ResourceReader;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day15Test {
@@ -15,8 +13,8 @@ class Day15Test {
     }
 
     private static Day15.Warehouse warehouse() {
-        List<String> map = ResourceReader.stringLines("day15_test_map.txt");
-        List<String> movements = ResourceReader.stringLines("day15_test_movements.txt");
+        var map = ResourceReader.stringLinesDelimited("day15_test1_map.txt", ResourceReader.Delimiter.NO_SPACE);
+        var movements = ResourceReader.stringLinesDelimited("day15_test1_movements.txt", ResourceReader.Delimiter.NO_SPACE);
         return new Day15.Warehouse(map, movements);
     }
 }
