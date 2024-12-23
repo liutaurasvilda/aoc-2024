@@ -9,7 +9,7 @@ class Day15Test {
 
     @Test
     void part1() {
-        assertEquals(0, Day15.sumOfGpsCoordinates(warehouse()));
+        assertEquals(2028, Day15.sumOfGpsCoordinates(warehouse()));
     }
 
     private static Day15.Warehouse warehouse() {

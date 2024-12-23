@@ -46,9 +46,10 @@ public class Robot {
         rightTurns.merge(Map.entry(location, direction), 1, Integer::sum);
     }
 
-    public void move() {
+    public Location move() {
         location = location.move(direction);
         visited.add(location);
+        return location;
     }
 
     public Location dryMove() {
