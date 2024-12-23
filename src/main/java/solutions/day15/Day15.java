@@ -3,12 +3,14 @@ package solutions.day15;
 import common.Location;
 import common.Robot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 final class Day15 {
 
     public static long sumOfGpsCoordinates(Warehouse warehouse) {
-        var robot = new Robot(startingLocation(warehouse.map()));
+        List<List<String>> warehouseMap = new ArrayList<>(warehouse.map());
+        var robot = new Robot(startingLocation(warehouseMap));
         for (List<String> rows : warehouse.movements) {
             for (String movement : rows) {
                 setDirection(movement, robot);
@@ -21,7 +23,7 @@ final class Day15 {
                 }
             }
         }
-        return 0;
+        return calculateGpsCoordinates(warehouseMap);
     }
 
     private static void setDirection(String movement, Robot robot) {
@@ -31,6 +33,18 @@ final class Day15 {
             case "<" -> robot.faceLeft();
             case ">" -> robot.faceRight();
         }
+    }
+
+    private static long calculateGpsCoordinates(List<List<String>> warehouseMap) {
+        var sum = 0L;
+        for (int i = 0; i < warehouseMap.size(); i++) {
+            for (int j = 0; j < warehouseMap.getFirst().size(); j++) {
+                if (warehouseMap.get(i).get(j).equals("O")) {
+                    sum += (i * 100L) + j;
+                }
+            }
+        }
+        return sum;
     }
 
     private static Location startingLocation(List<List<String>> map) {
