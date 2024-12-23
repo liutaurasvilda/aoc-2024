@@ -14,13 +14,13 @@ final class Day15 {
         for (List<String> rows : warehouse.movements) {
             for (String movement : rows) {
                 if (movement.equals("^")) {
-
+                    robot.faceUp();
                 } else if (movement.equals("v")) {
-
+                    robot.faceDown();
                 } else if (movement.equals("<")) {
-
+                    robot.faceLeft();
                 } else if (movement.equals(">")) {
-
+                    robot.faceRight();
                 }
             }
         }

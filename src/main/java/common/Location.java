@@ -32,14 +32,6 @@ public final class Location {
         return column;
     }
 
-    public Location left() {
-        return new Location(row, column - 1).withBoundaries(maxRow, maxColumn);
-    }
-
-    public Location right() {
-        return new Location(row, column + 1).withBoundaries(maxRow, maxColumn);
-    }
-
     public Location up() {
         return new Location(row - 1, column).withBoundaries(maxRow, maxColumn);
     }
@@ -48,12 +40,20 @@ public final class Location {
         return new Location(row + 1, column).withBoundaries(maxRow, maxColumn);
     }
 
+    public Location left() {
+        return new Location(row, column - 1).withBoundaries(maxRow, maxColumn);
+    }
+
+    public Location right() {
+        return new Location(row, column + 1).withBoundaries(maxRow, maxColumn);
+    }
+
     public Location move(Direction direction) {
         return switch (direction) {
-            case LEFT -> left();
-            case RIGHT -> right();
             case UP -> up();
             case DOWN -> down();
+            case LEFT -> left();
+            case RIGHT -> right();
             default -> throw new IllegalStateException();
         };
     }
