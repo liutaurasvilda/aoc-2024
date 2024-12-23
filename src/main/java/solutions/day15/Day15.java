@@ -27,7 +27,7 @@ final class Day15 {
                     switch (robot.getDirection()) {
                         case UP -> {
                             var indexToPutBoxAt = -1;
-                            for (int i = boxRow-1; i > 0; i--) {
+                            for (int i = boxRow - 1; i > 0; i--) {
                                 if (warehouseMap.get(i).get(boxColumn).equals(".")) {
                                     indexToPutBoxAt = i;
                                     break;
@@ -39,7 +39,7 @@ final class Day15 {
                         }
                         case DOWN -> {
                             var indexToPutBoxAt = -1;
-                            for (int i = boxRow+1; i < warehouseMap.size(); i++) {
+                            for (int i = boxRow + 1; i < warehouseMap.size(); i++) {
                                 if (warehouseMap.get(i).get(boxColumn).equals(".")) {
                                     indexToPutBoxAt = i;
                                     break;
@@ -51,7 +51,7 @@ final class Day15 {
                         }
                         case LEFT -> {
                             var indexToPutBoxAt = -1;
-                            for (int i = boxColumn-1; i > 0; i--) {
+                            for (int i = boxColumn - 1; i > 0; i--) {
                                 if (warehouseMap.get(boxRow).get(i).equals(".")) {
                                     indexToPutBoxAt = i;
                                     break;
@@ -63,7 +63,7 @@ final class Day15 {
                         }
                         case RIGHT -> {
                             var indexToPutBoxAt = -1;
-                            for (int i = boxColumn+1; i < warehouseMap.getFirst().size(); i++) {
+                            for (int i = boxColumn + 1; i < warehouseMap.getFirst().size(); i++) {
                                 if (warehouseMap.get(boxRow).get(i).equals(".")) {
                                     indexToPutBoxAt = i;
                                     break;
