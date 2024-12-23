@@ -55,7 +55,7 @@ final class Day15 {
                                 if (warehouseMap.get(boxRow).get(i).equals(".")) {
                                     indexToPutBoxAt = i;
                                     break;
-                                } else if (warehouseMap.get(i).get(boxColumn).equals("#")) {
+                                } else if (warehouseMap.get(boxRow).get(i).equals("#")) {
                                     break;
                                 }
                             }
@@ -67,7 +67,7 @@ final class Day15 {
                                 if (warehouseMap.get(boxRow).get(i).equals(".")) {
                                     indexToPutBoxAt = i;
                                     break;
-                                } else if (warehouseMap.get(i).get(boxColumn).equals("#")) {
+                                } else if (warehouseMap.get(boxRow).get(i).equals("#")) {
                                     break;
                                 }
                             }
@@ -77,7 +77,6 @@ final class Day15 {
                 }
             }
         }
-        print(warehouseMap);
         return calculateGpsCoordinates(warehouseMap);
     }
 
@@ -129,15 +128,6 @@ final class Day15 {
             }
         }
         throw new IllegalStateException("Guard not found");
-    }
-
-    private static void print(List<List<String>> map) {
-        for (int i = 0; i < map.size(); i++) {
-            System.out.println();
-            for (int j = 0; j < map.getFirst().size(); j++) {
-                System.out.print(map.get(i).get(j));
-            }
-        }
     }
 
     record Warehouse(List<List<String>> map, List<List<String>> movements) {
