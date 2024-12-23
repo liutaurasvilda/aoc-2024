@@ -9,7 +9,7 @@ public enum Direction {
             case RIGHT -> Direction.DOWN;
             case UP -> Direction.RIGHT;
             case DOWN -> Direction.LEFT;
-            case UNDEFINED -> throw new IllegalStateException("Direction is Undefined");
+            default -> throw new IllegalStateException();
         };
     }
 }

@@ -54,6 +54,7 @@ public final class Location {
             case RIGHT -> right();
             case UP -> up();
             case DOWN -> down();
+            default -> throw new IllegalStateException();
         };
     }
 
