@@ -1,5 +1,6 @@
 package solutions.day06;
 
+import common.Direction;
 import common.Location;
 
 import java.util.HashMap;
@@ -11,26 +12,21 @@ import java.util.Set;
 public class Guard {
 
     private Location location;
-    private Location.Direction direction;
+    private Direction direction;
 
     private final Set<Location> visited;
-    private final Map<Map.Entry<Location, Location.Direction>, Integer> rightTurns;
+    private final Map<Map.Entry<Location, Direction>, Integer> rightTurns;
 
     public Guard(List<List<String>> map) {
         this.location = startingLocation(map);
-        this.direction = Location.Direction.UP;
+        this.direction = Direction.UP;
         this.visited = new HashSet<>();
         this.visited.add(location);
         this.rightTurns = new HashMap<>();
     }
 
     public void turnRight() {
-        direction = switch (direction) {
-            case LEFT -> Location.Direction.UP;
-            case RIGHT -> Location.Direction.DOWN;
-            case UP -> Location.Direction.RIGHT;
-            case DOWN -> Location.Direction.LEFT;
-        };
+        direction = direction.turnRight();
         rightTurns.merge(Map.entry(location, direction), 1, Integer::sum);
     }
 
