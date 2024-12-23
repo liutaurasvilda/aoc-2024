@@ -48,7 +48,7 @@ public final class Location {
         return new Location(row, column + 1).withBoundaries(maxRow, maxColumn);
     }
 
-    public Location move(Direction direction) {
+    public Location at(Direction direction) {
         return switch (direction) {
             case UP -> up();
             case DOWN -> down();
@@ -68,7 +68,7 @@ public final class Location {
 
         return Arrays.stream(Direction.values())
                 .filter(e -> !e.equals(Direction.UNDEFINED))
-                .map(this::move)
+                .map(this::at)
                 .filter(withinRowBoundaries)
                 .filter(withinColumnBoundaries)
                 .toList();

@@ -42,18 +42,18 @@ public class Robot {
     }
 
     public void turnRight() {
-        direction = direction.turnRight();
+        direction = direction.turnClockwise();
         rightTurns.merge(Map.entry(location, direction), 1, Integer::sum);
     }
 
     public Location move() {
-        location = location.move(direction);
+        location = location.at(direction);
         visited.add(location);
         return location;
     }
 
     public Location dryMove() {
-        return location.move(direction);
+        return location.at(direction);
     }
 
     /* Getters */
