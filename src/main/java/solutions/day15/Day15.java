@@ -11,8 +11,8 @@ final class Day15 {
     public static long sumOfGpsCoordinates(Warehouse warehouse) {
         List<List<String>> warehouseMap = new ArrayList<>(warehouse.map());
         var robot = new Robot(startingLocation(warehouseMap));
-        for (List<String> rows : warehouse.movements) {
-            for (String movement : rows) {
+        for (List<String> movements : warehouse.movements()) {
+            for (String movement : movements) {
                 setDirection(movement, robot);
                 var nextLocation = robot.dryMove();
                 var symbol = warehouse.map().get(nextLocation.row()).get(nextLocation.column());
