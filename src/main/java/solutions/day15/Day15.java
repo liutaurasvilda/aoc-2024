@@ -8,23 +8,29 @@ import java.util.List;
 final class Day15 {
 
     public static long sumOfGpsCoordinates(Warehouse warehouse) {
-        Location start = startingLocation(warehouse.map());
-        var robot = new Robot(start);
-
+        var robot = new Robot(startingLocation(warehouse.map()));
         for (List<String> rows : warehouse.movements) {
             for (String movement : rows) {
-                if (movement.equals("^")) {
-                    robot.faceUp();
-                } else if (movement.equals("v")) {
-                    robot.faceDown();
-                } else if (movement.equals("<")) {
-                    robot.faceLeft();
-                } else if (movement.equals(">")) {
-                    robot.faceRight();
+                setDirection(movement, robot);
+                var nextLocation = robot.dryMove();
+                var symbol = warehouse.map().get(nextLocation.row()).get(nextLocation.column());
+                if (symbol.equals(".")) {
+                    robot.move();
+                } else if (symbol.equals("O")) {
+                    // TODO
                 }
             }
         }
         return 0;
+    }
+
+    private static void setDirection(String movement, Robot robot) {
+        switch (movement) {
+            case "^" -> robot.faceUp();
+            case "v" -> robot.faceDown();
+            case "<" -> robot.faceLeft();
+            case ">" -> robot.faceRight();
+        }
     }
 
     private static Location startingLocation(List<List<String>> map) {
