@@ -13,6 +13,10 @@ public class Robot {
     private final Set<Location> visited;
     private final Map<Map.Entry<Location, Direction>, Integer> rightTurns;
 
+    public Robot(Location location) {
+        this(location, Direction.UNDEFINED);
+    }
+
     public Robot(Location location, Direction direction) {
         this.location = location;
         this.direction = direction;
