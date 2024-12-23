@@ -19,7 +19,7 @@ final class Day15 {
                 if (symbol.equals(".")) {
                     robot.move();
                 } else if (symbol.equals("O")) {
-                    // TODO
+
                 }
             }
         }
