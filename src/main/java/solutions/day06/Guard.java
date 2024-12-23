@@ -1,5 +1,7 @@
 package solutions.day06;
 
+import common.Direction;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -7,10 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class Guard {
-
-    public enum Direction {
-        LEFT, RIGHT, UP, DOWN
-    }
 
     private Location location;
     private Direction direction;
