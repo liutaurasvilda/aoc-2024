@@ -1,5 +1,7 @@
 package solutions.day06;
 
+import common.Direction;
+import common.Robot;
 import common.Location;
 
 import java.util.List;
@@ -27,8 +29,9 @@ final class Day06 {
         return cycles;
     }
 
-    private static Guard explore(List<List<String>> map) {
-        var guard = new Guard(map);
+    private static Robot explore(List<List<String>> map) {
+        var start = startingLocation(map);
+        var guard = new Robot(start, Direction.UP);
         var next = guard.dryMove();
         while (inMap(next, map) && !guard.inCycle()) {
             var ahead = map.get(next.row()).get(next.column());
@@ -45,5 +48,16 @@ final class Day06 {
     private static boolean inMap(Location next, List<List<String>> map) {
         return next.row() >= 0 && next.row() < map.size() &&
                 next.column() >= 0 && next.column() < map.getFirst().size();
+    }
+
+    private static Location startingLocation(List<List<String>> map) {
+        for (int i = 0; i < map.size(); i++) {
+            for (int j = 0; j < map.getFirst().size(); j++) {
+                if (map.get(i).get(j).equals("^")) {
+                    return new Location(i, j);
+                }
+            }
+        }
+        throw new IllegalStateException("Guard not found");
     }
 }

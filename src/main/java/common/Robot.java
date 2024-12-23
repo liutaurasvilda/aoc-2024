@@ -1,15 +1,11 @@
-package solutions.day06;
-
-import common.Direction;
-import common.Location;
+package common;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class Guard {
+public class Robot {
 
     private Location location;
     private Direction direction;
@@ -17,12 +13,28 @@ public class Guard {
     private final Set<Location> visited;
     private final Map<Map.Entry<Location, Direction>, Integer> rightTurns;
 
-    public Guard(List<List<String>> map) {
-        this.location = startingLocation(map);
-        this.direction = Direction.UP;
+    public Robot(Location location, Direction direction) {
+        this.location = location;
+        this.direction = direction;
         this.visited = new HashSet<>();
-        this.visited.add(location);
+        this.visited.add(this.location);
         this.rightTurns = new HashMap<>();
+    }
+
+    public void faceLeft() {
+        direction = Direction.LEFT;
+    }
+
+    public void faceRight() {
+        direction = Direction.RIGHT;
+    }
+
+    public void faceUp() {
+        direction = Direction.UP;
+    }
+
+    public void faceDown() {
+        direction = Direction.DOWN;
     }
 
     public void turnRight() {
@@ -45,16 +57,5 @@ public class Guard {
 
     public boolean inCycle() {
         return rightTurns.values().stream().anyMatch(e -> e > 1);
-    }
-
-    private static Location startingLocation(List<List<String>> map) {
-        for (int i = 0; i < map.size(); i++) {
-            for (int j = 0; j < map.getFirst().size(); j++) {
-                if (map.get(i).get(j).equals("^")) {
-                    return new Location(i, j);
-                }
-            }
-        }
-        throw new IllegalStateException("Guard not found");
     }
 }
