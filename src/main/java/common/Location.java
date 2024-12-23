@@ -67,6 +67,7 @@ public final class Location {
                 : e -> true;
 
         return Arrays.stream(Direction.values())
+                .filter(e -> !e.equals(Direction.UNDEFINED))
                 .map(this::move)
                 .filter(withinRowBoundaries)
                 .filter(withinColumnBoundaries)
