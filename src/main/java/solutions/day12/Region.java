@@ -54,17 +54,17 @@ final class Region {
         var bottomSides = new HashMap<Integer, List<Integer>>();
 
         for (Location plot : gardenPlots) {
-            if (!gardenPlots.contains(plot.leftNeighbour())) {
-                addSide(leftSides, plot.leftNeighbour().column(), plot.row());
+            if (!gardenPlots.contains(plot.left())) {
+                addSide(leftSides, plot.left().column(), plot.row());
             }
-            if (!gardenPlots.contains(plot.rightNeighbour())) {
-                addSide(rightSides, plot.rightNeighbour().column(), plot.row());
+            if (!gardenPlots.contains(plot.right())) {
+                addSide(rightSides, plot.right().column(), plot.row());
             }
-            if (!gardenPlots.contains(plot.topNeighbour())) {
-                addSide(topSides, plot.topNeighbour().row(), plot.column());
+            if (!gardenPlots.contains(plot.up())) {
+                addSide(topSides, plot.up().row(), plot.column());
             }
-            if (!gardenPlots.contains(plot.bottomNeighbour())) {
-                addSide(bottomSides, plot.bottomNeighbour().row(), plot.column());
+            if (!gardenPlots.contains(plot.down())) {
+                addSide(bottomSides, plot.down().row(), plot.column());
             }
         }
 

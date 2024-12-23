@@ -1,5 +1,7 @@
 package solutions.day06;
 
+import common.Location;
+
 import java.util.List;
 
 final class Day06 {
@@ -40,7 +42,7 @@ final class Day06 {
         return guard;
     }
 
-    private static boolean inMap(Guard.Location next, List<List<String>> map) {
+    private static boolean inMap(Location next, List<List<String>> map) {
         return next.row() >= 0 && next.row() < map.size() &&
                 next.column() >= 0 && next.column() < map.getFirst().size();
     }

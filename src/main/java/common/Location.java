@@ -32,20 +32,24 @@ public final class Location {
         return column;
     }
 
-    public Location leftNeighbour() {
-        return Direction.LEFT.neighborOf(this);
+    public Location left() {
+        return Direction.LEFT.of(this);
     }
 
-    public Location rightNeighbour() {
-        return Direction.RIGHT.neighborOf(this);
+    public Location right() {
+        return Direction.RIGHT.of(this);
     }
 
-    public Location topNeighbour() {
-        return Direction.TOP.neighborOf(this);
+    public Location up() {
+        return Direction.UP.of(this);
     }
 
-    public Location bottomNeighbour() {
-        return Direction.BOTTOM.neighborOf(this);
+    public Location down() {
+        return Direction.DOWN.of(this);
+    }
+
+    public Location move(Direction direction) {
+        return direction.of(this);
     }
 
     public List<Location> neighbourhood() {
@@ -57,7 +61,7 @@ public final class Location {
                 : e -> true;
 
         return Arrays.stream(Direction.values())
-                .map(e -> e.neighborOf(this))
+                .map(e -> e.of(this))
                 .filter(withinRowBoundaries)
                 .filter(withinColumnBoundaries)
                 .toList();
@@ -85,9 +89,9 @@ public final class Location {
                 '}';
     }
 
-    private enum Direction {
+    public enum Direction {
         LEFT(0, -1), RIGHT(0, +1),
-        TOP(-1, 0), BOTTOM(+1, 0);
+        UP(-1, 0), DOWN(+1, 0);
 
         private final int rowOffset;
         private final int columnOffset;
@@ -97,7 +101,7 @@ public final class Location {
             this.columnOffset = columnOffset;
         }
 
-        private Location neighborOf(Location location) {
+        private Location of(Location location) {
             return new Location(location.row + rowOffset, location.column + columnOffset)
                     .withBoundaries(location.maxRow, location.maxColumn);
         }
