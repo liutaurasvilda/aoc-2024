@@ -25,20 +25,20 @@ public class Robot {
         this.rightTurns = new HashMap<>();
     }
 
-    public void faceLeft() {
-        direction = Direction.LEFT;
-    }
-
-    public void faceRight() {
-        direction = Direction.RIGHT;
-    }
-
     public void faceUp() {
         direction = Direction.UP;
     }
 
     public void faceDown() {
         direction = Direction.DOWN;
+    }
+
+    public void faceLeft() {
+        direction = Direction.LEFT;
+    }
+
+    public void faceRight() {
+        direction = Direction.RIGHT;
     }
 
     public void turnRight() {
@@ -53,6 +53,15 @@ public class Robot {
 
     public Location dryMove() {
         return location.move(direction);
+    }
+
+    /* Getters */
+    public Location getLocation() {
+        return location;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 
     public Set<Location> getVisited() {
