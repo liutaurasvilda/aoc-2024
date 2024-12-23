@@ -10,6 +10,20 @@ final class Day15 {
     public static long sumOfGpsCoordinates(Warehouse warehouse) {
         Location start = startingLocation(warehouse.map());
         var robot = new Robot(start);
+
+        for (List<String> rows : warehouse.movements) {
+            for (String movement : rows) {
+                if (movement.equals("^")) {
+
+                } else if (movement.equals("v")) {
+
+                } else if (movement.equals("<")) {
+
+                } else if (movement.equals(">")) {
+
+                }
+            }
+        }
         return 0;
     }
 
