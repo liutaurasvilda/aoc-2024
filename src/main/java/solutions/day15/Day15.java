@@ -1,6 +1,8 @@
 package solutions.day15;
 
+import common.Direction;
 import common.Location;
+import common.Robot;
 
 import java.util.List;
 
@@ -8,6 +10,7 @@ final class Day15 {
 
     public static long sumOfGpsCoordinates(Warehouse warehouse) {
         Location start = startingLocation(warehouse.map());
+        var robot = new Robot(start, Direction.UNDEFINED);
         return 0;
     }
 

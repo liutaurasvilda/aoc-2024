@@ -1,7 +1,7 @@
 package common;
 
 public enum Direction {
-    LEFT, RIGHT, UP, DOWN;
+    LEFT, RIGHT, UP, DOWN, UNDEFINED;
 
     public Direction turnRight() {
         return switch (this) {
@@ -9,6 +9,7 @@ public enum Direction {
             case RIGHT -> Direction.DOWN;
             case UP -> Direction.RIGHT;
             case DOWN -> Direction.LEFT;
+            case UNDEFINED -> throw new IllegalStateException("Direction is Undefined");
         };
     }
 }
