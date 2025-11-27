@@ -20,7 +20,7 @@ final class Day06 {
                     continue;
                 }
                 map.get(i).set(j, "#");
-                if (explore(map).inCycle()) {
+                if (explore(map).inClockwiseCycle()) {
                     cycles++;
                 }
                 map.get(i).set(j, ".");
@@ -33,10 +33,10 @@ final class Day06 {
         var start = startingLocation(map);
         var guard = new Robot(start, Direction.UP);
         var next = guard.dryMove();
-        while (inMap(next, map) && !guard.inCycle()) {
+        while (inMap(next, map) && !guard.inClockwiseCycle()) {
             var ahead = map.get(next.row()).get(next.column());
             if (ahead.equals("#")) {
-                guard.turnRight();
+                guard.turnClockwise();
             } else {
                 guard.move();
             }
